@@ -3,6 +3,8 @@ package com.financetracker.service;
 import com.financetracker.model.User;
 import com.financetracker.repository.UserRepository;
 import com.financetracker.dto.UpdateProfileRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +17,16 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final CategoryService categoryService;
+    private CategoryService categoryService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CategoryService categoryService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Autowired
+    @Lazy
+    public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -48,7 +55,9 @@ public class UserService implements UserDetailsService {
         User savedUser = userRepository.save(user);
 
         // Initialize default categories for the new user
-        categoryService.initializeDefaultCategories(savedUser);
+        if (categoryService != null) {
+            categoryService.initializeDefaultCategories(savedUser);
+        }
 
         return savedUser;
     }

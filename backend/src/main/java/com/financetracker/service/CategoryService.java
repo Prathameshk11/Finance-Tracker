@@ -20,19 +20,28 @@ public class CategoryService {
     }
 
     public void initializeDefaultCategories(User user) {
-        // Default income categories
-        String[] incomeCategories = {"Salary", "Freelance", "Investment", "Business", "Gift", "Other"};
-        for (String categoryName : incomeCategories) {
-            Category category = new Category(user, categoryName, TransactionType.INCOME, true);
-            categoryRepository.save(category);
-        }
+        try {
+            // Default income categories
+            String[] incomeCategories = {"Salary", "Freelance", "Investment", "Business", "Gift", "Other"};
+            for (String categoryName : incomeCategories) {
+                if (!categoryRepository.existsByUserIdAndNameAndType(user.getId(), categoryName, TransactionType.INCOME)) {
+                    Category category = new Category(user, categoryName, TransactionType.INCOME, true);
+                    categoryRepository.save(category);
+                }
+            }
 
-        // Default expense categories
-        String[] expenseCategories = {"Food", "Transportation", "Housing", "Healthcare", "Entertainment",
-                "Shopping", "Bills", "Education", "Travel", "Other"};
-        for (String categoryName : expenseCategories) {
-            Category category = new Category(user, categoryName, TransactionType.EXPENSE, true);
-            categoryRepository.save(category);
+            // Default expense categories
+            String[] expenseCategories = {"Food", "Transportation", "Housing", "Healthcare", "Entertainment",
+                    "Shopping", "Bills", "Education", "Travel", "Other"};
+            for (String categoryName : expenseCategories) {
+                if (!categoryRepository.existsByUserIdAndNameAndType(user.getId(), categoryName, TransactionType.EXPENSE)) {
+                    Category category = new Category(user, categoryName, TransactionType.EXPENSE, true);
+                    categoryRepository.save(category);
+                }
+            }
+        } catch (Exception e) {
+            // Log error but don't fail user creation
+            System.err.println("Error initializing default categories: " + e.getMessage());
         }
     }
 
