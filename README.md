@@ -1,10 +1,10 @@
-# Smart Personal Finance Tracker
+# Personal Finance Tracker
 
 A comprehensive full-stack web application for personal finance management built with **Java Spring Boot** backend and **React** frontend. This application helps users track their income and expenses, visualize spending patterns, manage categories, generate reports, and maintain complete control over their financial data.
 
 ## 🚀 Project Overview
 
-The Smart Personal Finance Tracker is designed to provide users with a complete financial management solution featuring:
+The Personal Finance Tracker is designed to provide users with a complete financial management solution featuring:
 
 - **Secure Authentication**: JWT-based authentication system
 - **Transaction Management**: Add, edit, delete, and categorize financial transactions
@@ -148,15 +148,6 @@ CREATE DATABASE finance_tracker;
 \`\`\`
 
 
-
-## 🚀 Deployment Considerations
-
-### Production Readiness
-- **Environment Configuration**: Separate configs for dev/prod
-- **Security Headers**: HTTPS, CORS, and security headers
-- **Database Migration**: Flyway for database versioning
-- **Logging**: Comprehensive logging with different levels
-- **Monitoring**: Application health checks and metrics
 
 
 ---

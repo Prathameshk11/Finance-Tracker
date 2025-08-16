@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { Plus, Edit, Trash2, Filter, Search, Calendar, TrendingUp, TrendingDown } from "lucide-react"
 import axios from "axios"
